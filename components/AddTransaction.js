@@ -1,17 +1,21 @@
-import React, { useState,useContext } from 'react';
-import { transContext } from '../context/GlobalContext';
+import React, { useState } from 'react';
+import{ useDispatch } from "react-redux"
+import { addTrans } from '../features/Transactions/transanctionsSlice';
+
 
 
 const AddTransaction = () => {
-    const {dispatch} = useContext(transContext)
+    const dispatch = useDispatch()
     const [text,setText] = useState('');
     const [amount,setAmount] = useState(0);
 
     const handleSubmit =(e)=>{
         e.preventDefault();
-        dispatch({type:'ADD_TRANS',payload:{text,amount}})
+        if(text && amount ){
+        dispatch(addTrans(text,amount))
         setText('');
         setAmount(0);
+        }
     }
 
   return (

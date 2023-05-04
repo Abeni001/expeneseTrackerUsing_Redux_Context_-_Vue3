@@ -1,15 +1,16 @@
-import { useContext } from "react";
-import { transContext } from "../context/GlobalContext";
-
+import { useSelector } from "react-redux"
+import { selectAll } from "../features/Transactions/transanctionsSlice";
 
 const IncomeExpenses = () => {
 
-const{transactions} = useContext(transContext)
+const transactions = useSelector(selectAll)
 
-const pstv = transactions.filter(trans=> trans.amount > 0)
-.map(trans=>trans.amount).reduce((total,crv)=>total+crv,0)
-const ngtv = transactions.filter(trans=> trans.amount < 0)
-.map(trans=>trans.amount).reduce((total,crv)=>total+crv,0)
+const amount = transactions.map(trans=>trans.amount)
+
+const pstv = amount.filter(trans=> trans > 0)
+.reduce((total,crv)=>total+crv,0)
+const ngtv = amount.filter(trans=> trans < 0)
+.reduce((total,crv)=>total+crv,0)
  
 
 return (
