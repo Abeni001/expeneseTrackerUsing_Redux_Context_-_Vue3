@@ -3,13 +3,13 @@ import { transContext } from '../context/GlobalContext';
 
 
 const AddTransaction = () => {
-    const {addTrans} = useContext(transContext)
+    const {dispatch} = useContext(transContext)
     const [text,setText] = useState('');
     const [amount,setAmount] = useState(0);
 
     const handleSubmit =(e)=>{
         e.preventDefault();
-        addTrans(text,Number(amount))
+        dispatch({type:'ADD_TRANS',payload:{text,amount}})
         setText('');
         setAmount(0);
     }
